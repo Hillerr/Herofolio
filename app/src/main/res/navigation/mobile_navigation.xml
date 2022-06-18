@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_all_characters">
+
+    <fragment
+        android:id="@+id/nav_all_characters"
+        android:name="com.hiller.herofolio.view.AllCharactersFragment"
+        android:label="@string/all_heros"
+        tools:layout="@layout/fragment_all_heros" />
+
+    <fragment
+        android:id="@+id/nav_fav_characters"
+        android:name="com.hiller.herofolio.view.FavoriteCharactersFragment"
+        android:label="@string/favorite_heros"
+        tools:layout="@layout/fragment_favorite_heros" />
+</navigation>
