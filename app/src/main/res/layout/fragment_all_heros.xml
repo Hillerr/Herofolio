@@ -24,6 +24,40 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
+            <EditText
+                android:id="@+id/search_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/search_icon"
+                android:paddingHorizontal="20dp" />
+
+            <TextView
+                android:id="@+id/search_clean"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/clean_search"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/search_icon"
+                android:paddingHorizontal="20dp"
+                android:visibility="gone"
+                />
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/filter_arrow"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_search"
+                android:layout_marginEnd="30dp"
+                android:layout_marginVertical="10dp"/>
+
             <ImageView
                 android:id="@+id/filter_arrow"
                 android:layout_width="wrap_content"

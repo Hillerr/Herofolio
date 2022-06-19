@@ -7,6 +7,8 @@
 
     <string name="all_characters">Todos os Personagens</string>
     <string name="character_name">Nome</string>
+    <string name="search_text">Pesquisar Herói</string>
+    <string name="clean_search">Limpar pesquisa</string>
     <string name="description">Descrição</string>
     <string name="all_heros">Personagens</string>
     <string name="favorite_heros">Personagens Salvos</string>

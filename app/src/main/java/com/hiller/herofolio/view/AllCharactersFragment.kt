@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -30,6 +31,8 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
     private val mAdapter = CharacterAdapter()
     private lateinit var mLoading: ProgressBar
     private lateinit var mFilterBox: ConstraintLayout
+    private lateinit var mSearchText: TextView
+    private lateinit var mSearchButton: ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, s: Bundle?): View {
         mViewModel = ViewModelProvider(this).get(AllCharactersViewModel::class.java)
@@ -88,6 +91,7 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
         mViewModel.getCharacters()
         mLoading = root.findViewById<ProgressBar>(R.id.loading_indicator)
         mLoading.visibility = View.VISIBLE
+
         return root
     }
 
@@ -118,17 +122,45 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
                 filter_arrow.setImageResource(R.drawable.ic_arrow_downward)
             }
         })
+        mViewModel.searchListener.observe(viewLifecycleOwner, {
+            if(it){
+                mAdapter.updateListener(mViewModel.searchedCharacters.value!!)
+                search_text.visibility = View.GONE
+                search_icon.visibility = View.GONE
+                search_clean.visibility = View.VISIBLE
+            } else {
+                mAdapter.updateListener(mViewModel.characters.value!!)
+                search_text.visibility = View.VISIBLE
+                search_icon.visibility = View.VISIBLE
+                search_clean.visibility = View.GONE
+            }
+        })
     }
 
     private fun listeners(root: View){
         val filterArrow = root.findViewById<ImageView>(R.id.filter_arrow)
+        val searchArrow = root.findViewById<ImageView>(R.id.search_icon)
+        val searchClean = root.findViewById<TextView>(R.id.search_clean)
         filterArrow.setOnClickListener(this)
+        searchArrow.setOnClickListener(this)
+        searchClean.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        if(v?.id == R.id.filter_arrow){
-            mViewModel.orderCharacters()
+        when (v?.id) {
+            R.id.filter_arrow -> {
+                mViewModel.orderCharacters()
+            }
+            R.id.search_icon -> {
+                val name: String = search_text.text.toString()
+                mViewModel.filterCharactersByName(name)
+            }
+            R.id.search_clean -> {
+                mViewModel.clearSearch()
+            }
         }
     }
+
+
 
 }

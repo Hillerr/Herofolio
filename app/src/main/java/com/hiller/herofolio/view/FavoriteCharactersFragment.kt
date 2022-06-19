@@ -59,6 +59,10 @@ class FavoriteCharactersFragment : Fragment() {
                 mAdapter.notifyDataSetChanged()
                 Toast.makeText(context, "Removido", Toast.LENGTH_SHORT).show()
             }
+
+            override fun onOrderClick() {
+
+            }
         }
 
         // Cria os observadores
