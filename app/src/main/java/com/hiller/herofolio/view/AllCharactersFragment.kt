@@ -31,8 +31,6 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
     private val mAdapter = CharacterAdapter()
     private lateinit var mLoading: ProgressBar
     private lateinit var mFilterBox: ConstraintLayout
-    private lateinit var mSearchText: TextView
-    private lateinit var mSearchButton: ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, s: Bundle?): View {
         mViewModel = ViewModelProvider(this).get(AllCharactersViewModel::class.java)
@@ -70,7 +68,7 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
             }
 
             override fun onRemoveFavorite(id: Int) {
-                TODO("Not yet implemented")
+                // Não é impletada para esta view
             }
 
             override fun onOrderClick() {
@@ -100,6 +98,9 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
         mAdapter.attachListener(mListener)
     }
 
+    /**
+     * Cria os observadores
+     */
     private fun observe() {
         mViewModel.mValidation.observe(viewLifecycleOwner, Observer{
             if(it){
@@ -137,6 +138,9 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
         })
     }
 
+    /**
+     * Cria os ouvintes
+     */
     private fun listeners(root: View){
         val filterArrow = root.findViewById<ImageView>(R.id.filter_arrow)
         val searchArrow = root.findViewById<ImageView>(R.id.search_icon)
@@ -146,6 +150,9 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
         searchClean.setOnClickListener(this)
     }
 
+    /**
+     * Registra as ações dos botões da UI
+     */
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.filter_arrow -> {

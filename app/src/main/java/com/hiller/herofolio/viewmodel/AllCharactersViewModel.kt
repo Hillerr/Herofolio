@@ -30,6 +30,9 @@ class AllCharactersViewModel(application: Application) : AndroidViewModel(applic
     private val mOrderListener = MutableLiveData<Boolean>(false)
     var orderListener: LiveData<Boolean> = mOrderListener
 
+    /**
+     * Obtem personagens da API da MARVEL
+     */
     fun getCharacters() {
 
         mCharacterRepository.getCharacters(object :
@@ -48,6 +51,9 @@ class AllCharactersViewModel(application: Application) : AndroidViewModel(applic
         })
     }
 
+    /**
+     * Filtro dos personagens pelo nome e notifica a View
+     */
     fun filterCharactersByName(name: String) {
         var found = mutableListOf<CharacterResponse>()
         mSearchedCharacter.value?.clear()
@@ -63,10 +69,16 @@ class AllCharactersViewModel(application: Application) : AndroidViewModel(applic
         mSearchListener.value = true
     }
 
+    /**
+     * Notifica a view que é para carregar todos os personagens
+     */
     fun clearSearch(){
         mSearchListener.value = false
     }
 
+    /**
+     * Verifica se os personagens da API já haviam sido salvo como favoritos
+     */
     private fun verifyFavorites(characters: List<CharacterResponse>): List<CharacterResponse> {
         val fav = mCharacterRepository.listFavoriteCharacters()
         val ids = mutableListOf<Int>()
@@ -81,6 +93,9 @@ class AllCharactersViewModel(application: Application) : AndroidViewModel(applic
         return characters
     }
 
+    /**
+     * Marca ou desmarca o personagem como favorito
+     */
     fun favoriteCharacter(character: CharacterResponse) {
         character.isFavorite = !character.isFavorite
 
@@ -99,6 +114,9 @@ class AllCharactersViewModel(application: Application) : AndroidViewModel(applic
 
     }
 
+    /**
+     * Altera a ordem dos personagens mostrados através do nome
+     */
     fun orderCharacters() {
         mList.value = mList.value?.reversed()
         mOrderListener.value = !mOrderListener.value!!
