@@ -6,54 +6,46 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.hiller.herofolio.R
 import com.hiller.herofolio.service.constants.AppConstants
+import com.hiller.herofolio.view.utils.getImageByUrl
 import com.hiller.herofolio.viewmodel.CharacterDetailViewModel
-import kotlinx.android.synthetic.main.activity_task_form.*
+import kotlinx.android.synthetic.main.activity_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CharacterDetailActivity : AppCompatActivity(), View.OnClickListener {
+class CharacterDetailActivity : AppCompatActivity() {
 
-    private var mTaskId: Int = 0
+    private var mCharacterId: Int = 0
+    private var mCharacterName: String = ""
+    private var mCharacterDescription: String = ""
+    private var mThumbnail: String =  ""
     private lateinit var mViewModel: CharacterDetailViewModel
-    private val mDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
-    private val mListPriorityId: MutableList<Int> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task_form)
+        setContentView(R.layout.activity_detail)
 
         mViewModel = ViewModelProvider(this).get(CharacterDetailViewModel::class.java)
-
-        // Inicializa eventos
-        listeners()
-        observe()
 
         loadDataFromActivity()
     }
 
+    /**
+     * Obtem o id do personagem selecionado
+     */
     private fun loadDataFromActivity() {
         val bundle = intent.extras
 
         if(bundle != null){
-            mTaskId = bundle.getInt(AppConstants.BUNDLE.TASKID)
-//            mViewModel.load(mTaskId)
+            mCharacterId = bundle.getInt(AppConstants.BUNDLE.TASKID)
+            mCharacterName = bundle.getString(AppConstants.BUNDLE.NAME, "")
+            mCharacterDescription = bundle.getString(AppConstants.BUNDLE.DESCRIPTION, "")
+            mThumbnail = bundle.getString(AppConstants.BUNDLE.THUMBNAIL, "")
+            mViewModel.getCharacter(mCharacterId)
+
+            character_name.text = mCharacterName
+            character_description.text = mCharacterDescription
+            character_thumbnail.getImageByUrl(mThumbnail)
         }
     }
-
-    override fun onClick(v: View) {
-
-    }
-
-
-    private fun observe() {
-
-    }
-
-
-    private fun listeners() {
-        button_save.setOnClickListener(this)
-        button_date.setOnClickListener(this)
-    }
-
 
 }

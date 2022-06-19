@@ -22,7 +22,7 @@
         android:layout_marginStart="70dp"
         android:gravity="center_vertical"
         android:textSize="15sp"
-        android:text="@string/descricao"
+        android:text="@string/description"
         app:layout_constraintLeft_toRightOf="@id/hero_thumbnail"
         app:layout_constraintTop_toTopOf="parent" />
 

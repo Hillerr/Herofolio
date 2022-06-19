@@ -7,7 +7,7 @@ interface CharacterListener {
     /**
      * Click para visualizar detalhes
      */
-    fun onDetailClick(id: Int)
+    fun onDetailClick(id: Int, name: String, description: String, thumbnail: String)
 
     /**
      * Click para favoritar
@@ -18,5 +18,10 @@ interface CharacterListener {
      * Click para desfavoritar
      */
     fun onRemoveFavorite(id: Int)
+
+    /**
+     * Click para selecionar a ordem
+     */
+    fun onOrderClick()
 
 }

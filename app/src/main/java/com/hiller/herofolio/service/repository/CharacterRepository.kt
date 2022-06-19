@@ -43,6 +43,28 @@ class CharacterRepository(val context: Context) {
         })
     }
 
+    fun getCharacter(id: Int, listener: APIListener<MarvelResponse<MarvelDataReponse>>){
+        val call: Call<MarvelResponse<MarvelDataReponse>> = mRemote.getCharacter(id)
+        call.enqueue(object : Callback<MarvelResponse<MarvelDataReponse>>{
+            override fun onResponse(
+                call: Call<MarvelResponse<MarvelDataReponse>>,
+                response: Response<MarvelResponse<MarvelDataReponse>>
+            ) {
+                if(response.code() != AppConstants.HTTP.SUCCESS) {
+                    val validation = Gson().fromJson(response.errorBody()!!.string(), String::class.java)
+                    listener.onFailure(validation)
+                } else {
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<MarvelResponse<MarvelDataReponse>>, t: Throwable) {
+                listener.onFailure(R.string.ERROR_LOAD_HERO.toString())
+            }
+
+        })
+    }
+
     fun saveFavoriteCharacter(favCharacter: FavoriteCharacter){
         mFavoriteDatabase.save(favCharacter)
     }

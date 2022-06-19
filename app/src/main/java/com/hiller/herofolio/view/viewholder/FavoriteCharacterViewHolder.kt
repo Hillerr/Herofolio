@@ -25,7 +25,7 @@ class FavoriteCharacterViewHolder(itemView: View, val listener: CharacterListene
         var thumbnail = character.thumbnail
         this.mThumbnail.getImageByUrlCenterCrop(thumbnail)
 
-        if(character.isFavorite){
+        if (character.isFavorite) {
             mFavoriteButton.setImageResource(R.drawable.ic_favorite_selected)
         } else {
             mFavoriteButton.setImageResource(R.drawable.ic_favorite_unselected)
@@ -33,7 +33,15 @@ class FavoriteCharacterViewHolder(itemView: View, val listener: CharacterListene
 
 
         // Eventos
-        mName.setOnClickListener { listener.onDetailClick(character.id) }
+        mName.setOnClickListener {
+
+            listener.onDetailClick(
+                character.id,
+                character.name,
+                character.description,
+                character.thumbnail
+            )
+        }
         mFavoriteButton.setOnClickListener { listener.onRemoveFavorite(character.id) }
 
 

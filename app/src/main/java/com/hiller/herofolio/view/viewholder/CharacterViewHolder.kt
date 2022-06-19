@@ -36,7 +36,9 @@ class CharacterViewHolder(itemView: View, val listener: CharacterListener) :
 
 
         // Eventos
-        mName.setOnClickListener { listener.onDetailClick(character.id) }
+        mName.setOnClickListener {
+            listener.onDetailClick(character.id, character.name, character.description, thumbnail)
+        }
         mFavoriteButton.setOnClickListener { listener.onFavoriteClick(character) }
 
 

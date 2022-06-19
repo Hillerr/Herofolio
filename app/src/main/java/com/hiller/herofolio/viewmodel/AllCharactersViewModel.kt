@@ -21,6 +21,9 @@ class AllCharactersViewModel(application: Application) : AndroidViewModel(applic
     private val mValidationListener = MutableLiveData<Boolean>()
     var mValidation: LiveData<Boolean> = mValidationListener
 
+    private val mOrderListener = MutableLiveData<Boolean>(false)
+    var orderListener: LiveData<Boolean> = mOrderListener
+
     fun getCharacters() {
 
         mCharacterRepository.getCharacters(object :
@@ -69,6 +72,11 @@ class AllCharactersViewModel(application: Application) : AndroidViewModel(applic
             mCharacterRepository.deleteFavoriteCharacter(character.id)
         }
 
+    }
+
+    fun orderCharacters() {
+        mList.value  = mList.value?.reversed()
+        mOrderListener.value = !mOrderListener.value!!
     }
 
 

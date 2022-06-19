@@ -1,10 +1,13 @@
 package com.hiller.herofolio.view
 
+import android.content.ClipDescription
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,12 +20,14 @@ import com.hiller.herofolio.service.listener.CharacterListener
 import com.hiller.herofolio.service.model.CharacterResponse
 import com.hiller.herofolio.view.adapter.CharacterAdapter
 import com.hiller.herofolio.viewmodel.AllCharactersViewModel
+import kotlinx.android.synthetic.main.fragment_all_heros.*
 
-class AllCharactersFragment : Fragment() {
+class AllCharactersFragment : Fragment(), View.OnClickListener {
 
     private lateinit var mViewModel: AllCharactersViewModel
     private lateinit var mListener: CharacterListener
     private val mAdapter = CharacterAdapter()
+    private lateinit var mLoading: ProgressBar
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, s: Bundle?): View {
         mViewModel = ViewModelProvider(this).get(AllCharactersViewModel::class.java)
@@ -34,14 +39,19 @@ class AllCharactersFragment : Fragment() {
 
         // Eventos disparados ao clicar nas linhas da RecyclerView
         mListener = object : CharacterListener {
-            override fun onDetailClick(id: Int) {
+            // Visualizar detalhes do persongem
+            override fun onDetailClick(id: Int, name: String, description: String, thumbnail: String) {
                 val intent = Intent(context, CharacterDetailActivity::class.java)
                 val bundle = Bundle()
                 bundle.putInt(AppConstants.BUNDLE.TASKID, id)
+                bundle.putString(AppConstants.BUNDLE.NAME, name)
+                bundle.putString(AppConstants.BUNDLE.DESCRIPTION, description)
+                bundle.putString(AppConstants.BUNDLE.THUMBNAIL, thumbnail)
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
 
+            // Salvar/Remover personagem como favorito
             override fun onFavoriteClick(character: CharacterResponse) {
                 mViewModel.favoriteCharacter(character)
                 mAdapter.notifyDataSetChanged()
@@ -57,35 +67,63 @@ class AllCharactersFragment : Fragment() {
             override fun onRemoveFavorite(id: Int) {
                 TODO("Not yet implemented")
             }
+
+            override fun onOrderClick() {
+                mViewModel.orderCharacters()
+                mAdapter.notifyDataSetChanged()
+            }
         }
 
         // Cria os observadores
         observe()
 
+        // Listeners
+        listeners(root)
+
         // Retorna view
         mViewModel.getCharacters()
+        mLoading = root.findViewById<ProgressBar>(R.id.loading_indicator)
+        mLoading.visibility = View.VISIBLE
         return root
     }
 
     override fun onResume() {
         super.onResume()
         mAdapter.attachListener(mListener)
-        mViewModel.getCharacters()
     }
 
     private fun observe() {
         mViewModel.mValidation.observe(viewLifecycleOwner, Observer{
             if(it){
-                Toast.makeText(context, "Deu bom", Toast.LENGTH_SHORT).show()
+
             } else {
-                Toast.makeText(context, "Deu ruim", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.ERROR_LOAD_HERO, Toast.LENGTH_SHORT).show()
             }
+            mLoading.visibility = View.GONE
         })
         mViewModel.characters.observe(viewLifecycleOwner,{
             if(it.count() > 0){
                 mAdapter.updateListener(it)
             }
         })
+        mViewModel.orderListener.observe(viewLifecycleOwner, {
+            if(it){
+                filter_arrow.setImageResource(R.drawable.ic_arrow_upward)
+            } else {
+                filter_arrow.setImageResource(R.drawable.ic_arrow_downward)
+            }
+        })
+    }
+
+    private fun listeners(root: View){
+        val filterArrow = root.findViewById<ImageView>(R.id.filter_arrow)
+        filterArrow.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        if(v?.id == R.id.filter_arrow){
+            mViewModel.orderCharacters()
+        }
     }
 
 }

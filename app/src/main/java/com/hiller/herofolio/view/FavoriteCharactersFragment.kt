@@ -36,10 +36,13 @@ class FavoriteCharactersFragment : Fragment() {
 
         // Eventos disparados ao clicar nas linhas da RecyclerView
         mListener = object : CharacterListener {
-            override fun onDetailClick(id: Int) {
+            override fun onDetailClick(id: Int, name: String, description: String, thumbnail: String) {
                 val intent = Intent(context, CharacterDetailActivity::class.java)
                 val bundle = Bundle()
                 bundle.putInt(AppConstants.BUNDLE.TASKID, id)
+                bundle.putString(AppConstants.BUNDLE.NAME, name)
+                bundle.putString(AppConstants.BUNDLE.DESCRIPTION, description)
+                bundle.putString(AppConstants.BUNDLE.THUMBNAIL, thumbnail)
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
