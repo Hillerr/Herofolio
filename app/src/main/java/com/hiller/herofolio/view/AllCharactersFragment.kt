@@ -28,7 +28,7 @@ class AllCharactersFragment : Fragment() {
         mViewModel = ViewModelProvider(this).get(AllCharactersViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_all_heros, container, false)
 
-        val recycler = root.findViewById<RecyclerView>(R.id.recycler_all_tasks)
+        val recycler = root.findViewById<RecyclerView>(R.id.recycler_all_characters)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = mAdapter
 

@@ -35,5 +35,6 @@
 
     <string name="all_heros">Personagens</string>
     <string name="favorite_heros">Personagens Salvos</string>
+    <string name="no_data_available">Não há personagens salvos</string>
 
 </resources>

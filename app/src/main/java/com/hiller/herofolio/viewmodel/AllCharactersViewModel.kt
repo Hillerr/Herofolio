@@ -62,7 +62,7 @@ class AllCharactersViewModel(application: Application) : AndroidViewModel(applic
             favCharacter.name = character.name
             favCharacter.description = character.description
             favCharacter.isFavorite = character.isFavorite
-            favCharacter.thumbnail = "${character.thumbnail.path}${character.thumbnail.extension}"
+            favCharacter.thumbnail = "${character.thumbnail.path}.${character.thumbnail.extension}"
 
             mCharacterRepository.saveFavoriteCharacter(favCharacter)
         } else {
