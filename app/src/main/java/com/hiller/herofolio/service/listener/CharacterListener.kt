@@ -1,5 +1,7 @@
 package com.hiller.herofolio.service.listener
 
+import com.hiller.herofolio.service.model.CharacterResponse
+
 interface CharacterListener {
 
     /**
@@ -10,7 +12,7 @@ interface CharacterListener {
     /**
      * Click para favoritar
      */
-    fun onAddFavoriteClick(id: Int)
+    fun onFavoriteClick(character: CharacterResponse)
 
     /**
      * Click para desfavoritar

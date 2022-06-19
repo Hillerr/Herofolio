@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hiller.herofolio.R
 import com.hiller.herofolio.service.constants.AppConstants
 import com.hiller.herofolio.service.listener.CharacterListener
+import com.hiller.herofolio.service.model.CharacterResponse
 import com.hiller.herofolio.view.adapter.CharacterAdapter
 import com.hiller.herofolio.viewmodel.AllCharactersViewModel
 
@@ -41,8 +42,16 @@ class AllCharactersFragment : Fragment() {
                 startActivity(intent)
             }
 
-            override fun onAddFavoriteClick(id: Int) {
-                TODO("Not yet implemented")
+            override fun onFavoriteClick(character: CharacterResponse) {
+                mViewModel.favoriteCharacter(character)
+                mAdapter.notifyDataSetChanged()
+
+                if(character.isFavorite){
+                    Toast.makeText(context, "${character.name} salvo", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "${character.name} removido", Toast.LENGTH_SHORT).show()
+                }
+
             }
 
             override fun onRemoveFavorite(id: Int) {
@@ -54,6 +63,7 @@ class AllCharactersFragment : Fragment() {
         observe()
 
         // Retorna view
+        mViewModel.getCharacters()
         return root
     }
 

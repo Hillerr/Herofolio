@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hiller.herofolio.R
 import com.hiller.herofolio.service.listener.CharacterListener
 import com.hiller.herofolio.service.model.CharacterResponse
+import com.hiller.herofolio.view.utils.getImageByUrlCenterCrop
 import java.text.SimpleDateFormat
 
 class CharacterViewHolder(itemView: View, val listener: CharacterListener) :
@@ -16,8 +17,7 @@ class CharacterViewHolder(itemView: View, val listener: CharacterListener) :
 
     private var mName: TextView = itemView.findViewById(R.id.character_name)
     private var mThumbnail: ImageView = itemView.findViewById(R.id.hero_thumbnail)
-
-    private val mDateFormat = SimpleDateFormat("dd/MM/yyyy")
+    private var mFavoriteButton: ImageView = itemView.findViewById(R.id.favorite_marker)
 
     /**
      * Atribui valores aos elementos de interface e também eventos
@@ -26,17 +26,19 @@ class CharacterViewHolder(itemView: View, val listener: CharacterListener) :
 
         this.mName.text = character.name
         var thumbnail = "${character.thumbnail.path}.${character.thumbnail.extension}"
+        this.mThumbnail.getImageByUrlCenterCrop(thumbnail)
+
+        if(character.isFavorite){
+            mFavoriteButton.setImageResource(R.drawable.ic_favorite_selected)
+        } else {
+            mFavoriteButton.setImageResource(R.drawable.ic_favorite_unselected)
+        }
 
 
         // Eventos
         mName.setOnClickListener { listener.onDetailClick(character.id) }
-        mThumbnail.setOnClickListener {
-//            if(character.isFavorite){
-//                listener.onAddFavoriteClick(character.id)
-//            } else {
-//                listener.onRemoveFavorite(character.id)
-//            }
-        }
+        mFavoriteButton.setOnClickListener { listener.onFavoriteClick(character) }
+
 
     }
 
