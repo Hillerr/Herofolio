@@ -75,9 +75,7 @@ class AllCharactersViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun orderCharacters() {
-        mList.value  = mList.value?.reversed()
-        mOrderListener.value = !mOrderListener.value!!
+            mList.value  = mList.value?.reversed()
+            mOrderListener.value = !mOrderListener.value!!
     }
-
-
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +29,7 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
     private lateinit var mListener: CharacterListener
     private val mAdapter = CharacterAdapter()
     private lateinit var mLoading: ProgressBar
+    private lateinit var mFilterBox: ConstraintLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, s: Bundle?): View {
         mViewModel = ViewModelProvider(this).get(AllCharactersViewModel::class.java)
@@ -81,6 +83,8 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
         listeners(root)
 
         // Retorna view
+        mFilterBox = root.findViewById<ConstraintLayout>(R.id.filter_box)
+        mFilterBox.visibility = View.GONE
         mViewModel.getCharacters()
         mLoading = root.findViewById<ProgressBar>(R.id.loading_indicator)
         mLoading.visibility = View.VISIBLE
@@ -100,6 +104,7 @@ class AllCharactersFragment : Fragment(), View.OnClickListener {
                 Toast.makeText(context, R.string.ERROR_LOAD_HERO, Toast.LENGTH_SHORT).show()
             }
             mLoading.visibility = View.GONE
+            mFilterBox.visibility = View.VISIBLE
         })
         mViewModel.characters.observe(viewLifecycleOwner,{
             if(it.count() > 0){
