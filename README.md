@@ -15,7 +15,7 @@ Por último, renomeie o arquivo para `AppConstants.kt`.
 </br>
 
 <p align="center">
-    <img src="screenshots/project_structure.png" alt="Unform" width="380"/>
+    <img src="screenshots/project_structure.png" alt="Unform" width="400"/>
 </p>
 
 </br>
