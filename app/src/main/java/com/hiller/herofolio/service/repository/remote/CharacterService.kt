@@ -7,7 +7,7 @@ import retrofit2.http.*
 
 interface CharacterService {
 
-    @GET("characters?limit=100")
+    @GET("characters?limit=50")
     fun getCharacters(): Call<MarvelResponse<MarvelDataReponse>>
 
     @GET("characters/{id}")
