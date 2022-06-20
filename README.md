@@ -4,6 +4,12 @@
 
 Este aplicativo utiliza a [API da Marvel](https://developer.marvel.com/) para realizar a listagem dos personagens, onde você pode salvar os personagens e obter informações sobre eles.
 
+### Recursos
+* Busca por nome de personagem
+* Salvar personagens favoritos
+* Detalhes do personagem
+* Listagem por ordem alfabética crescente e decrescente
+
 ## Como Utilizar
 
 Primeiramente, você precisa criar uma conta no site da Marvel e obter uma chave pública e uma chave privada. Com estas duas chaves obtidas, dentro do diretório `/app/src/main/java/com/hiller/herofolio/service/constants/` há um arquivo `AppConstantsExample.kt`, substitua as constantes `apikey` e `privateKey` com os valores da sua conta. </br>
