@@ -2,15 +2,13 @@ package com.hiller.herofolio.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.hiller.herofolio.R
 import com.hiller.herofolio.service.constants.AppConstants
 import com.hiller.herofolio.view.utils.getImageByUrl
 import com.hiller.herofolio.viewmodel.CharacterDetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class CharacterDetailActivity : AppCompatActivity() {
 
@@ -23,6 +21,14 @@ class CharacterDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        supportActionBar?.apply {
+
+            // show back button on toolbar
+            // on back button press, it will navigate to parent activity
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
 
         mViewModel = ViewModelProvider(this).get(CharacterDetailViewModel::class.java)
 
