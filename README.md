@@ -4,7 +4,21 @@
 
 Este aplicativo utiliza a [API da Marvel](https://developer.marvel.com/) para realizar a listagem dos personagens, onde você pode salvar os personagens e obter informações sobre eles.
 
+## Como Utilizar
+
+Primeiramente, você precisa criar uma conta no site da Marvel e obter uma chave pública e uma chave privada. Com estas duas chaves obtidas, dentro do diretório `/app/src/main/java/com/hiller/herofolio/service/constants/` há um arquivo `AppConstantsExample.kt`, substitua as constantes `apikey` e `privateKey` com os valores da sua conta. </br>
+
+Por último, renomeie o arquivo para `AppConstants.kt`.
+
 ### Estrutura do Projeto
+
+</br>
+
+<p align="center">
+    <img src="screenshots/project_structure.png" alt="Unform" width="280"/>
+</p>
+
+</br>
 
 Foi utilizada a arquitetura MVVM para estrutaração das classes e das responsabilidade de cada componente.
 
